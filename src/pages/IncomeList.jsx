@@ -11,7 +11,7 @@ export default function IncomeList({ refresh }) {
   const [editAmount, setEditAmount] = useState("");
 
   const fetchData = async () => {
-    const res = await axios.get(`${API}/income`);
+    const res = await API.get("/income");
     setData(res.data);
   };
 
@@ -22,9 +22,7 @@ export default function IncomeList({ refresh }) {
   const safeData = Array.isArray(data) ? data : [];
 
   // SEARCH FILTER
-  const filteredData = safeData.filter((item) =>
-    item.date.includes(search)
-  );
+  const filteredData = safeData.filter((item) => item.date.includes(search));
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -46,7 +44,7 @@ export default function IncomeList({ refresh }) {
 
   // DELETE
   const handleDelete = async (id) => {
-    await axios.delete(`${API}/income/${id}`);
+    await API.delete(`/income/${id}`);
     fetchData();
   };
 
@@ -58,7 +56,7 @@ export default function IncomeList({ refresh }) {
 
   // UPDATE
   const handleUpdate = async () => {
-    await axios.post(`${API}/income`, {
+    await API.post("/income", {
       date: safeData.find((d) => d._id === editId)?.date,
       amount: Number(editAmount),
     });
@@ -70,7 +68,6 @@ export default function IncomeList({ refresh }) {
 
   return (
     <div className="max-w-3xl mx-auto mt-6">
-
       {/* SUMMARY CARDS */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-white shadow rounded-2xl p-4">

@@ -12,8 +12,9 @@ export default function IncomeForm({ onSaved }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      await axios.post(`${API}/income`, {
+      await API.post("/income", {
         date,
         amount: Number(amount),
       });
@@ -21,40 +22,31 @@ export default function IncomeForm({ onSaved }) {
       setAmount("");
       onSaved();
     } catch (error) {
-      console.error(error);
+      console.error(error.response?.data || error.message);
       alert("Failed to save!");
     }
   };
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      
       {/* CARD */}
       <div className="bg-gradient-to-br from-white to-gray-50 shadow-2xl rounded-3xl border border-gray-100 p-6">
-
         {/* HEADER */}
         <div className="mb-6 text-center">
           <div className="w-12 h-12 mx-auto bg-blue-100 rounded-2xl flex items-center justify-center mb-3">
             💰
           </div>
 
-          <h2 className="text-xl font-bold text-gray-800">
-            Income Tracker
-          </h2>
+          <h2 className="text-xl font-bold text-gray-800">Income Tracker</h2>
 
-          <p className="text-sm text-gray-500 mt-1">
-            Add daily store earnings
-          </p>
+          <p className="text-sm text-gray-500 mt-1">Add daily store earnings</p>
         </div>
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="space-y-4">
-
           {/* DATE */}
           <div>
-            <label className="text-xs font-medium text-gray-600">
-              Date
-            </label>
+            <label className="text-xs font-medium text-gray-600">Date</label>
             <input
               type="date"
               value={date}
