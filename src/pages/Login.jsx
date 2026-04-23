@@ -1,10 +1,14 @@
 import { useState } from "react";
 import API from "../api";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export default function Login({ onLogin, goRegister }) {
+export default function Login({ goRegister }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,10 +18,11 @@ export default function Login({ onLogin, goRegister }) {
         email,
         password,
       });
-
+      login(res.data.user, res.data.token);
+      
       toast.success("Login successful 🎉");
-      localStorage.setItem("token", res.data.token);
-      onLogin(res.data.token);
+
+      navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed");
     }
