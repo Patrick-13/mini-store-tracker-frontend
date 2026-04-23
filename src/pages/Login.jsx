@@ -19,7 +19,7 @@ export default function Login({ goRegister }) {
         password,
       });
       login(res.data.user, res.data.token);
-      
+
       toast.success("Login successful 🎉");
 
       navigate("/");
@@ -80,7 +80,7 @@ export default function Login({ goRegister }) {
         <p className="text-sm text-center text-gray-500 mt-6">
           No account?{" "}
           <button
-            onClick={goRegister}
+            onClick={() => navigate("/register")}
             className="text-blue-600 font-medium hover:underline"
           >
             Register
