@@ -94,7 +94,7 @@ export default function Register({ onRegister, goLogin }) {
         <p className="text-sm text-center text-gray-500 mt-6">
           Already have an account?{" "}
           <button
-            onClick={goLogin}
+            onClick={() => navigate("/")}
             className="text-blue-600 font-medium hover:underline"
           >
             Login

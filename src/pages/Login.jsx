@@ -21,8 +21,7 @@ export default function Login({ goRegister }) {
       login(res.data.user, res.data.token);
 
       toast.success("Login successful 🎉");
-
-      navigate("/");
+      navigate("/dashboard");
     } catch (err) {
       toast.error(err.response?.data?.message || "Login failed");
     }
